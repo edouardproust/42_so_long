@@ -1,26 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 19:30:53 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/05 20:20:43 by eproust          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "libft.h"
-#include <stdlib.h>
+# include "ft_printf.h"
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdarg.h>
+
+# define EXIT_FAILURE 1
+# define EXIT_SUCCESS 0
+# define BUFFER_SIZE 1024
 
 // check_map.c
-void	check_map(char *filepath);
-void	check_filepath(char *filepath);
+char	**parse_check_map(char *filepath);
 
 // utils.c
-void error_exit(char *msg);
+void	error_exit(char *msg, ...);
+int		charinset(char c, char *set);
+void	free_matrix(char **arr);
 
 #endif
+

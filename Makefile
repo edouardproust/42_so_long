@@ -1,42 +1,32 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: eproust <marvin@42.fr>                     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/05 16:09:44 by eproust           #+#    #+#              #
-#    Updated: 2024/12/05 20:54:41 by eproust          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = so_long
 
+C_DIR = src/
 C_FILES = main.c \
 	map_check.c \
 	utils.c
-C_PATHS = $(addprefix src/, $(C_FILES))
+
+C_PATHS = $(addprefix $(C_DIR), $(C_FILES))
 O_PATHS = $(C_PATHS:.c=.o)
 
+H_DIR = include/
 H_FILES = so_long.h
-H_PATHS = $(addprefix include/, $(H_FILES))
+H_PATHS = $(addprefix $(H_DIR), $(H_FILES))
 
-PRINTF_DIR = lib/libftprintf/
-A_PRINTF = $(LIB_DIR)libftprintf.a
-LIBFT_DIR = $(LIB_DIR)libft/
+PRINTF_DIR = printf/
+PRINTF = $(PRINTF_DIR)libftprintf.a
 
-FLAGS = -Wall -Werror -Wextra -lm -I $(PRINTF_DIR) -I $(LIBFT_DIR)
+FLAGS = -Wall -Werror -Wextra -I$(H_DIR) -I$(PRINTF_DIR) -I$(PRINTF_DIR)libft/
 
-all: make_lib $(NAME)
+all: make_libft $(NAME)
 
-%.c: %.o Makefile $(H_PATHS) $(A_PRINTF)
+%.o: %.c Makefile $(H_PATHS) $(PRINTF)
 	cc $(FLAGS) -c $< -o $@
 
-make_lib:
+make_libft:
 	$(MAKE) -C $(PRINTF_DIR)
 
-$(NAME): $(O_PATHS)
-	cc $(FLAGS) $(O_PATHS) $(A_PRINTF) -o $@
+$(NAME): $(O_PATHS) $(PRINTF)
+	cc $(FLAGS) $(O_PATHS) $(PRINTF) -o $@
 
 clean:
 	rm -f $(O_PATHS)
@@ -44,7 +34,7 @@ clean:
  
 fclean: clean
 	rm -f $(NAME)
-	rm -f $(A_PRINTF)
+	rm -f $(PRINTF)
 
 re:
 	$(MAKE) all

@@ -6,17 +6,19 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:15:53 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/05 20:50:02 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/06 23:59:06 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int		check_extension(filepath, ext)
+#include "so_long.h"
+
+static int		check_fileext(char *filepath, char *ext)
 {
 	int		ext_len;
 	char	*dot_ptr;
 	int		i;
 
-	dot_ptr = ft_strrch(filepath, '.');
+	dot_ptr = ft_strrchr(filepath, '.');
 	if (!dot_ptr)
 		return (0);
 	ext_len = ft_strlen(ext);
@@ -30,10 +32,109 @@ static int		check_extension(filepath, ext)
 	return (1);
 }
 
-void	check_filepath(char *filepath)
+static char	*get_map_content(char *filepath)
 {
-	if (!filepath)
-		error_exit("Incorrect filepath.");
+	int		fd;
+	ssize_t	br;
+	char	buffer[BUFFER_SIZE];	
+	char	*map;
+	char	*new_map;
+
+	if (!check_fileext(filepath, ".ber"))
+		error_exit("Incorrect file extension.");
+	fd = open(filepath, O_RDONLY);
+	if (fd == -1)
+		error_exit("Wrong file path.");
+	map = malloc(1);
+	if (!map)
+		error_exit("Map allocation failed.");
+	while (1)
+	{
+		br = read(fd, buffer, BUFFER_SIZE);
+		if (br <= 0)
+			break;
+		new_map = ft_strjoin(map, buffer);
+		free(map);
+		map = new_map;
+	}
+	return (map);
+}
+
+static void	check_map_chars(char *map) {
+    int count_c;
+	int	count_e;
+	int	count_p;
+
+	count_c = 0;
+	count_e = 0;
+	count_p = 0;
+    while (*map)
+	{
+		if (!charinset(*map, "10CEP\n"))
+			error_exit("The map must contain only the characters \
+				'1', '0', 'C', 'E' and 'P'.", map);
+		if (*map == 'C') count_c++;
+		if (*map == 'E') count_e++;
+		if (*map == 'P') count_p++;
+		map++;
+    }
+    if (count_c < 1)
+        error_exit("The map must contain at least one 'C'.", map);
+    if (count_e != 1)
+        error_exit("The map must contain exactly one 'E'.", map);
+    if (count_p != 1)
+        error_exit("The map must contain exactly one 'P'.", map);
+}
+
+/**
+ * Check if the map is surrounded by walls (char '1').
+ *
+ * @param	r Map's number of rows
+ * @param	c Map's number of columns
+ */
+static void	check_map_walls(char **rows, int r, int c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (rows[i])
+	{
+		j = 0;
+		while (rows[i][j])
+		{
+			if ((i == 0 || i == r - 1 || j == 0 || j == c - 1)
+				&& rows[i][j] != '1')
+			{
+				free_matrix(rows);
+				error_exit("Map must be surrounded by walls (char '1').");
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	check_map_is_squared(char **rows, int *r, int *c)
+{	
+	*r = 0;
+	*c = ft_strlen(rows[*r]);
+	while (rows[*r])
+	{
+		if (*r > 0 && ft_strlen(rows[*r] != *c))
+		{
+			free_matrix(rows);
+			error_exit("The map must be squared.");
+		}
+		(*r)++;
+	}
+}
+
+// TODO
+static void	check_map_path(char **rows)
+{
+	if (!rows)
+		ft_printf("NO");
 }
 
 /**
@@ -42,18 +143,32 @@ void	check_filepath(char *filepath)
  * In case of map error, prints `Error\n` in stdout followed by a specific
  * message about the error.
  *
- * @brief	Map criterias: 
- *			- Map components: walls (1), open spaces (0), collectibles (C),
- *			exit (E), player start (P).
- *			- Map must be rectangular, surrounded by 1, and contain: at least
- *			one C, only one E and only one P.
- *			- P and E must be connected by a path of 0s (character moves up,
- *			down, left and right, no diagonal)
+ * Map criterias: 
+ * - Map components: walls (1), open spaces (0), collectibles (C), exit (E),
+ * player start (P).
+ * - Map must be rectangular, surrounded by 1, and contain: at least one C,
+ * only one E and only one P.
+ * - P and E must be connected by a path of 0s (character moves up, down,
+ * left and right, no diagonal).
  *
+ * @note	'r' is the map's number of rows and 'c' the number of columns.
  * @return	void
  */
-void	check_map(char *filepath)
+char	**parse_check_map(char *filepath)
 {
-	check_filepath(filepath);
-}
+	char	*map;
+	char	**rows;
+	int		r;
+	int		c;
 
+	map = get_map_content(filepath);
+	check_map_chars(map);
+	rows = ft_split(map, '\n');
+	if (!rows)
+		error_exit("Map parsing failed.", map);
+	free(map);
+	check_map_is_squared(rows, &r, &c);
+	check_map_walls(rows, r, c);
+	check_map_path(rows);
+	return (rows);
+}
