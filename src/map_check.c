@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:15:53 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/06 23:59:06 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/07 17:30:25 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ static char	*get_map_content(char *filepath)
 {
 	int		fd;
 	ssize_t	br;
-	char	buffer[BUFFER_SIZE];	
+	char	buffer[BUFFER_SIZE];
 	char	*map;
 	char	*new_map;
 
 	if (!check_fileext(filepath, ".ber"))
-		error_exit("Incorrect file extension.");
+		error_exit("Incorrect file extension.", NULL);
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
-		error_exit("Wrong file path.");
+		error_exit("Wrong file path.", NULL);
 	map = malloc(1);
 	if (!map)
-		error_exit("Map allocation failed.");
+		error_exit("Map allocation failed.", NULL);
 	while (1)
 	{
 		br = read(fd, buffer, BUFFER_SIZE);
@@ -61,29 +61,30 @@ static char	*get_map_content(char *filepath)
 }
 
 static void	check_map_chars(char *map) {
-    int count_c;
-	int	count_e;
-	int	count_p;
+    int 	count_c;
+	int		count_e;
+	int		count_p;
+	char	*start;
 
 	count_c = 0;
 	count_e = 0;
 	count_p = 0;
+	start = map;
     while (*map)
 	{
 		if (!charinset(*map, "10CEP\n"))
-			error_exit("The map must contain only the characters \
-				'1', '0', 'C', 'E' and 'P'.", map);
+			error_exit("The map must contain only chars: 1, 0, C, E, P", start, NULL);
 		if (*map == 'C') count_c++;
 		if (*map == 'E') count_e++;
 		if (*map == 'P') count_p++;
 		map++;
     }
     if (count_c < 1)
-        error_exit("The map must contain at least one 'C'.", map);
+        error_exit("The map must contain at least one 'C'.", start, NULL);
     if (count_e != 1)
-        error_exit("The map must contain exactly one 'E'.", map);
+        error_exit("The map must contain exactly one 'E'.", start, NULL);
     if (count_p != 1)
-        error_exit("The map must contain exactly one 'P'.", map);
+        error_exit("The map must contain exactly one 'P'.", start, NULL);
 }
 
 /**
@@ -107,7 +108,7 @@ static void	check_map_walls(char **rows, int r, int c)
 				&& rows[i][j] != '1')
 			{
 				free_matrix(rows);
-				error_exit("Map must be surrounded by walls (char '1').");
+				error_exit("Map must be surrounded by walls (char '1')", NULL);
 			}
 			j++;
 		}
@@ -115,16 +116,16 @@ static void	check_map_walls(char **rows, int r, int c)
 	}
 }
 
-static void	check_map_is_squared(char **rows, int *r, int *c)
+static void	check_map_is_squared(char **rows, size_t *r, size_t *c)
 {	
+	*c = ft_strlen(rows[0]);
 	*r = 0;
-	*c = ft_strlen(rows[*r]);
 	while (rows[*r])
 	{
-		if (*r > 0 && ft_strlen(rows[*r] != *c))
+		if (*r > 0 && ft_strlen(rows[*r]) != *c)
 		{
 			free_matrix(rows);
-			error_exit("The map must be squared.");
+			error_exit("The map must be squared.", NULL);
 		}
 		(*r)++;
 	}
@@ -158,14 +159,14 @@ char	**parse_check_map(char *filepath)
 {
 	char	*map;
 	char	**rows;
-	int		r;
-	int		c;
+	size_t	r;
+	size_t	c;
 
 	map = get_map_content(filepath);
 	check_map_chars(map);
 	rows = ft_split(map, '\n');
 	if (!rows)
-		error_exit("Map parsing failed.", map);
+		error_exit("Map parsing failed.", map, NULL);
 	free(map);
 	check_map_is_squared(rows, &r, &c);
 	check_map_walls(rows, r, c);

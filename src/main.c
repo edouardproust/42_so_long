@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/07 00:00:06 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/07 17:28:06 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 	int		i;
 
 	if (ac != 2)
-		error_exit("Usage: ./so_long <path_to_map>.ber");
+		error_exit("Usage: ./so_long <path_to_map>.ber", NULL);
 	map = parse_check_map(av[1]);
 	i = 0;
 	// TODO BEGIN
