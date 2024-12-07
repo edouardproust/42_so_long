@@ -1,0 +1,185 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_check.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/05 20:15:53 by eproust           #+#    #+#             */
+/*   Updated: 2024/12/07 20:20:24 by eproust          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+static char	*read_file(char *filepath)
+{
+	int		fd;
+	ssize_t	br;
+	char	buffer[BUFFER_SIZE];
+	char	*map;
+	char	*new_map;
+
+	if (!check_fileext(filepath, ".ber"))
+		error_exit("Incorrect file extension.");
+	fd = open(filepath, O_RDONLY);
+	if (fd == -1)
+		error_exit("Wrong file path.");
+	map = malloc(1);
+	if (!map)
+		error_exit("Map allocation failed.");
+	map[0] = '\0';
+	while (1)
+	{
+		br = read(fd, buffer, BUFFER_SIZE);
+		if (br <= 0)
+			break;
+		buffer[br] = '\0';
+		new_map = ft_strjoin(map, buffer);
+		free(map);
+		map = new_map;
+	}
+	return (map);
+}
+
+static void	set_map_content(t_map *map, char *filepath)
+{
+	char	**content;
+	char	*file_data;
+
+	file_data = read_file(filepath);
+	content = ft_split(file_data, '\n');
+	free(file_data);
+	if (!content)
+		error_exit("Map parsing failed.");//TODO
+    map->content = content;	
+}
+
+static void	set_map_points(t_map **map)
+{
+	char		**content;
+	size_t		r;
+	size_t		c;
+	char		ch;
+	int			count_c;
+	int			count_p;
+	int			count_e;
+
+	count_c = 0;
+	count_p = 0;
+	count_e = 0;
+	content = (*map)->content;
+	r = 0;
+	while (content[r])
+	{
+		c = 0;
+		while (content[r][c])
+		{
+			ch = content[r][c];
+			if (!charinset(ch, "10CEP"))
+				error_exit("The map must contain only chars: 1, 0, C, E, P");
+			if (ch == 'C')
+				count_c++;
+			if (ch == 'P')
+			{
+				(*map)->start.x = c;
+				(*map)->start.y = r;
+				count_p++;
+			}
+			if (ch == 'E')
+			{
+				(*map)->exit.x = c;
+				(*map)->exit.y = r;
+				count_e++;
+			}
+			c++;
+		}
+		r++;
+	}
+	if (count_c < 1)
+		error_exit("The map must contain at least one 'C'."); //TODO
+    if (count_e != 1)
+		error_exit("The map must contain exactly one 'E'."); // TODO
+    if (count_p != 1)
+		error_exit("The map must contain exactly one 'P'."); //TODO
+}
+
+static void	set_map_size(t_map **map)
+{
+	char	**content;
+	int		r;
+
+	content = (*map)->content;
+	(*map)->cols = ft_strlen(content[0]);
+	r = 0;
+	while (content[r])
+	{
+		if (r > 0 && ft_strlen(content[r]) != (*map)->cols)
+			error_exit("The map must be squared."); //TODO
+		r++;
+	}
+	(*map)->rows = r;
+}
+
+/**
+ * Check if the map is surrounded by walls (char '1').
+ */
+static void	check_map_walls(t_map *map)
+{
+	size_t	r;
+	size_t	c;
+
+	r = 0;
+	while (map->content[r])
+	{
+		c = 0;
+		while (map->content[r][c])
+		{
+			if ((r == 0 || r == map->rows - 1 || c == 0 || c == map->cols - 1)
+				&& map->content[r][c] != '1')
+				error_exit("Map must be surrounded by walls (char '1')"); //TODO
+			c++;
+		}
+		r++;
+	}
+}
+
+// TODO
+static void	check_map_path(t_map *map)
+{
+	if (!map)
+		ft_printf("NO");
+}
+
+/**
+ * Check the map and terminate the program if the map is invalid.
+ *
+ * In case of map error, prints `Error\n` in stdout followed by a specific
+ * message about the error.
+ *
+ * Map criterias: 
+ * - Map components: walls (1), open spaces (0), collectibles (C), exit (E),
+ * player start (P).
+ * - Map must be rectangular, surrounded by 1, and contain: at least one C,
+ * only one E and only one P.
+ * - P and E must be connected by a path of 0s (character moves up, down,
+ * left and right, no diagonal).
+ *
+ * @note	'r' is the map's number of rows and 'c' the number of columns.
+ * @return	void
+ */
+t_map	*map_init_check(char *filepath)
+{
+    t_map *map;
+
+	map = (t_map *)malloc(sizeof(t_map));
+    if (map == NULL) {
+        return NULL;
+    }
+	set_map_content(map, filepath);
+	set_map_size(&map); // + check if map is squared
+	set_map_points(&map); // + check map chars
+	check_map_walls(map);
+	check_map_path(map); //TODO
+    return (map);
+}

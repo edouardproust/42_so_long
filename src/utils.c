@@ -6,12 +6,19 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 19:29:27 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/07 17:28:17 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/07 21:31:26 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	error_exit(char *msg)
+{
+	ft_printf("Error\n%s\n", msg);
+	exit(EXIT_FAILURE);
+}
+
+/*
 void	error_exit(char *msg, ...)
 {
 	va_list	ptrs;
@@ -29,6 +36,7 @@ void	error_exit(char *msg, ...)
 	va_end(ptrs);
 	exit(EXIT_FAILURE);
 }
+*/
 
 int	charinset(char c, char *set)
 {
@@ -56,3 +64,8 @@ void	free_matrix(char **arr)
 	arr = NULL;
 }
 
+void	set_point(t_point *point, size_t x, size_t y)
+{
+	point->x = x;
+	point->y = y;
+}

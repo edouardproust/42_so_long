@@ -2,7 +2,8 @@ NAME = so_long
 
 C_DIR = src/
 C_FILES = main.c \
-	map_check.c \
+	map_init.c \
+	map_init_validate.c \
 	utils.c
 
 C_PATHS = $(addprefix $(C_DIR), $(C_FILES))
