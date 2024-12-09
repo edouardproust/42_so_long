@@ -6,13 +6,13 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/07 17:28:06 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/09 02:07:19 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void show_window()
+void	show_window(void)
 {
 	return ;
 }
@@ -29,17 +29,22 @@ void show_window()
  */
 int	main(int ac, char **av)
 {
-	char	**map;
-	int		i;
+	t_map	*map;
+	int		r;
 
 	if (ac != 2)
 		error_exit("Usage: ./so_long <path_to_map>.ber", NULL);
-	map = parse_check_map(av[1]);
-	i = 0;
-	// TODO BEGIN
-	while (map[i])
-		ft_printf("%s\n", map[i++]);
-	free_matrix(map);
-	// TODO END
+	map = map_init(av[1]);
+	// TODO DEBUG START
+	ft_printf("rows: %d\ncols: %d\n", map->rows, map->cols);
+	ft_printf("points: P[%d, %d], E[%d, %d]\n", map->start->x, map->start->y,
+		map->exit->x, map->exit->y);
+	ft_printf("collectibles: %d\n", map->c_count);
+	ft_printf("map:\n");
+	r = 0;
+	while (map->content[r])
+		ft_printf("%s\n", map->content[r++]);
+	// TODO DEBUG END
+	free_map(map);
 	return (0);
 }

@@ -2,4 +2,5 @@
 *.swo
 *.a
 *.o
-
+*.bak
+so_long
