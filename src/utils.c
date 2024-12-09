@@ -6,37 +6,11 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 19:29:27 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/07 21:31:26 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/09 00:54:45 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	error_exit(char *msg)
-{
-	ft_printf("Error\n%s\n", msg);
-	exit(EXIT_FAILURE);
-}
-
-/*
-void	error_exit(char *msg, ...)
-{
-	va_list	ptrs;
-	void	*ptr;
-
-	ft_printf("Error\n%s\n", msg);
-	va_start(ptrs, msg);
-	while (1)
-	{
-		ptr = va_arg(ptrs, void *);
-		if (!ptr)
-			break;
-		free(ptr);
-	}
-	va_end(ptrs);
-	exit(EXIT_FAILURE);
-}
-*/
 
 int	charinset(char c, char *set)
 {
@@ -49,23 +23,14 @@ int	charinset(char c, char *set)
 	return (0);
 }
 
-void	free_matrix(char **arr)
+void	set_point(t_point **point, size_t x, size_t y, t_map *map)
 {
-	int	i;
-
-	i = 0;
-	while (arr[i])
+	if (!*point)
 	{
-		free(arr[i]);
-		arr[i] = NULL;
-		i++;
+		*point = malloc(sizeof(t_point));
+		if (!*point)
+			error_alloc(map);
 	}
-	free(arr);
-	arr = NULL;
-}
-
-void	set_point(t_point *point, size_t x, size_t y)
-{
-	point->x = x;
-	point->y = y;
+	(*point)->x = x;
+	(*point)->y = y;
 }
