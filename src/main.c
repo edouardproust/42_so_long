@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/09 02:07:19 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/09 19:33:47 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	main(int ac, char **av)
 	int		r;
 
 	if (ac != 2)
-		error_exit("Usage: ./so_long <path_to_map>.ber", NULL);
+		error_exit(ERR_ARGS, NULL);
 	map = map_init(av[1]);
 	// TODO DEBUG START
 	ft_printf("rows: %d\ncols: %d\n", map->rows, map->cols);
-	ft_printf("points: P[%d, %d], E[%d, %d]\n", map->start->x, map->start->y,
+	ft_printf("points: P[%d, %d], E[%d, %d]\n", map->player->x, map->player->y,
 		map->exit->x, map->exit->y);
 	ft_printf("collectibles: %d\n", map->c_count);
 	ft_printf("map:\n");

@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 19:29:27 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/09 00:54:45 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/09 18:51:32 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	set_point(t_point **point, size_t x, size_t y, t_map *map)
 	{
 		*point = malloc(sizeof(t_point));
 		if (!*point)
-			error_alloc(map);
+			error_exit(ERR_ALLOC, map);
 	}
 	(*point)->x = x;
 	(*point)->y = y;

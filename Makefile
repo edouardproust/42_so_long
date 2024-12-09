@@ -4,7 +4,7 @@ C_DIR = src/
 C_FILES = main.c \
 	map_init.c \
 	map_init_validate.c \
-	map_init_validate2.c \
+	map_init_validate_path.c \
 	utils.c \
 	utils_exit.c
 
@@ -12,10 +12,11 @@ C_PATHS = $(addprefix $(C_DIR), $(C_FILES))
 O_PATHS = $(C_PATHS:.c=.o)
 
 H_DIR = include/
-H_FILES = so_long.h
+H_FILES = so_long.h \
+	exit_status.h
 H_PATHS = $(addprefix $(H_DIR), $(H_FILES))
 
-PRINTF_DIR = printf/
+PRINTF_DIR = lib/printf/
 PRINTF = $(PRINTF_DIR)libftprintf.a
 
 FLAGS = -Wall -Werror -Wextra -I$(H_DIR) -I$(PRINTF_DIR) -I$(PRINTF_DIR)libft/
