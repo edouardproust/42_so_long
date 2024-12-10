@@ -6,16 +6,11 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/09 19:33:47 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/10 02:08:04 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	show_window(void)
-{
-	return ;
-}
 
 /**
  * `so_long` is a 2D game where a character collects items in a map, then
@@ -45,6 +40,7 @@ int	main(int ac, char **av)
 	while (map->content[r])
 		ft_printf("%s\n", map->content[r++]);
 	// TODO DEBUG END
+	show_window();
 	free_map(map);
 	return (0);
 }
