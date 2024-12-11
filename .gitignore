@@ -3,4 +3,6 @@
 *.a
 *.o
 *.bak
+*.xcf
+archive
 so_long

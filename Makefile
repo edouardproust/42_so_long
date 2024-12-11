@@ -26,18 +26,18 @@ MLX_DIR = lib/minilibx_linux/
 
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I$(MLX_DIR) -I$(H_DIR) -I$(PRINTF_DIR) -I$(PRINTF_DIR)libft/
-LIBS = $(PRINTF) $(MLX_DIR)libmlx.a -lXext -lX11 -lm -lz
+LIBS = $(PRINTF) $(MLX_DIR)libmlx.a -L/usr/lib/X11 -lXext -lX11 -lm -lz
 
 all: make_libft $(NAME)
 
 %.o: %.c Makefile $(H_PATHS) $(PRINTF)
-	cc $(CFLAGS) $(INCLUDES) -c $< -o $@
+	cc $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
 make_libft:
 	$(MAKE) -C $(PRINTF_DIR)
 
 $(NAME): $(O_PATHS) $(PRINTF)
-	cc $(CFLAGS) $(O_PATHS) $(LIBS) -o $@
+	cc $(CFLAGS) -o $@ $(O_PATHS) $(LIBS)
 
 clean:
 	rm -f $(O_PATHS)
