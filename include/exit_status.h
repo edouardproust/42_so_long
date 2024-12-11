@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:42:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/11 03:53:24 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/11 20:00:48 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@
 	"Some collectibles (C) are not accessible by player (P)."
 
 # define ERR_MLX "Failed to open game window."
+# define ERR_SPRITE "Failed to load sprite."
 
 #endif
