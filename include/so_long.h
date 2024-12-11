@@ -3,7 +3,7 @@
 
 # include "exit_status.h"
 # include "map.h"
-# include "window.h"
+# include "display.h"
 # include "ft_printf.h"
 
 #endif

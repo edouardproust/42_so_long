@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:42:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/09 20:02:08 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/11 03:53:24 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@
 	"There is no path for player (P) to reach the exit (E)."
 # define ERR_MAP_PATH_C ERR_MAP \
 	"Some collectibles (C) are not accessible by player (P)."
+
+# define ERR_MLX "Failed to open game window."
 
 #endif

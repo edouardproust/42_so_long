@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/10 16:04:07 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/11 04:33:42 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	main(int ac, char **av)
 	while (map->content[r])
 		ft_printf("%s\n", map->content[r++]);
 	// TODO DEBUG END
-	if (show_window(map) == 1)
-		error_exit("Show window error!", NULL); //TODO
+	display_game(map, "Pognon Knight");
 	free_map(map);
 	return (0);
 }

@@ -5,7 +5,8 @@ C_FILES = main.c \
 	map_init.c \
 	map_init_validate.c \
 	map_init_validate_path.c \
-	window.c \
+	display_game.c \
+	mlx_events.c \
 	utils.c \
 	utils_exit.c
 
@@ -16,7 +17,7 @@ H_DIR = include/
 H_FILES = so_long.h \
 	exit_status.h \
 	map.h \
-	window.h
+	display.h
 H_PATHS = $(addprefix $(H_DIR), $(H_FILES))
 
 PRINTF_DIR = lib/printf/
