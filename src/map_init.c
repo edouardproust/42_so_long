@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:34:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/09 19:32:15 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/12 19:38:29 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	open_map_file(char *filepath)
 	validate_file_ext(filepath, ".ber");
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
-		error_exit(ERR_FILE_PATH, NULL);
+		error_map(ERR_FILE_PATH, NULL);
 	return (fd);
 }
 
@@ -38,7 +38,7 @@ static char	*read_file_content(int fd)
 
 	map = malloc(1);
 	if (!map)
-		error_exit(ERR_ALLOC, NULL);
+		error_map(ERR_ALLOC, NULL);
 	map[0] = '\0';
 	while (1)
 	{
@@ -49,7 +49,7 @@ static char	*read_file_content(int fd)
 		new_map = ft_strjoin(map, buffer);
 		free(map);
 		if (!new_map)
-			error_exit(ERR_ALLOC, NULL);
+			error_map(ERR_ALLOC, NULL);
 		map = new_map;
 	}
 	return (map);
@@ -70,12 +70,12 @@ static void	set_map_content(char *filepath, t_map **map)
 	content = ft_split(file_data, '\n');
 	free(file_data);
 	if (!content)
-		error_exit(ERR_ALLOC, NULL);
+		error_map(ERR_ALLOC, NULL);
 	*map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 	{
 		free_matrix(content, -1);
-		error_exit(ERR_ALLOC, NULL);
+		error_map(ERR_ALLOC, NULL);
 	}
 	(*map)->content = content;
 	(*map)->player = NULL;
@@ -98,7 +98,7 @@ void	set_map_points(t_map *map, int *p_count, int *e_count)
 		while (map->content[r][++c])
 		{
 			if (!charinset(map->content[r][c], "10CEP"))
-				error_exit(ERR_MAP_CHARS, map);
+				error_map(ERR_MAP_CHARS, map);
 			if (map->content[r][c] == 'C')
 				map->c_count++;
 			else if (map->content[r][c] == 'P')

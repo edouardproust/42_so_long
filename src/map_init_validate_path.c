@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:09:33 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/09 22:18:21 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/12 19:41:27 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	free_mapvalid(t_mapvalid *mapvalid, char *msg, t_map *map)
 	free_matrix(mapvalid->content, -1);	
 	free(mapvalid);
 	if (msg && map)
-		error_exit(msg, map);
+		error_map(msg, map);
 }
 
 /**
@@ -83,12 +83,12 @@ void	validate_map_path(t_map *map)
 
     mapvalid = malloc(sizeof(t_mapvalid));
     if (!mapvalid)
-		error_exit(ERR_ALLOC, map);
+		error_map(ERR_ALLOC, map);
 	mapvalid->content = map_dup_content(map->content, map->rows);
 	if (!mapvalid->content)
 	{
         free(mapvalid);
-		error_exit(ERR_ALLOC, map);
+		error_map(ERR_ALLOC, map);
     }	
 	mapvalid->exit = 0;
 	mapvalid->c_count = 0;

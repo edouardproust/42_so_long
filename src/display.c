@@ -3,92 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
+/*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 13:43:23 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/11 20:39:43 by eproust          ###   ########.fr       */
+/*   Created: 2024/12/12 15:36:31 by eproust           #+#    #+#             */
+/*   Updated: 2024/12/12 21:01:07 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	load_sprites(t_data *data)
+static mlx_t	*open_window(t_game *game)
 {
-	data->sprites['0'] = mlx_xpm_file_to_image(data->mlx_ptr, SPRITE_FLOOR,
-		&data->cell_w, &data->cell_h);
-	data->sprites['1'] = mlx_xpm_file_to_image(data->mlx_ptr, SPRITE_WALL,
-		&data->cell_w, &data->cell_h);
-	data->sprites['P'] = mlx_xpm_file_to_image(data->mlx_ptr, SPRITE_PLAYER,
-		&data->cell_w, &data->cell_h);
-	data->sprites['C'] = mlx_xpm_file_to_image(data->mlx_ptr, SPRITE_COLLEC,
-		&data->cell_w, &data->cell_h);
-	data->sprites['E'] = mlx_xpm_file_to_image(data->mlx_ptr, SPRITE_EXIT,
-		&data->cell_w, &data->cell_h);
-	if (!data->sprites['0'] || !data->sprites['1'] || !data->sprites['P']
-		|| !data->sprites['C'] || !data->sprites['E'])
-		return (0);
-	return (1);
+	int		win_width;
+	int		win_height;
+	mlx_t	*mlx;
+
+	win_width = game->map->cols * CELL_LEN_PX;
+	win_height = game->map->rows * CELL_LEN_PX;
+	mlx = mlx_init(win_width, win_height, game->name, true);	
+	if (!mlx)
+		error_game("Error initializing MLX library.", game);
+	return (mlx);
 }
 
-void	display_sprites(t_data *data)
+static void	set_image(t_game *game, int index, char *filepath)
+{
+	mlx_texture_t	*tx;
+	mlx_image_t		*img;
+
+	tx = mlx_load_png(filepath);
+	if (!tx)
+		error_game("Error loading texture to memory.", game);
+	img = mlx_texture_to_image(game->mlx, tx);
+	mlx_delete_texture(tx);
+	if (!img)
+		error_game("Error converting texture to image.", game);
+	game->images[index] = img;
+}
+
+static void	set_images(t_game *game)
+{
+	set_image(game, 0, TX_FLOOR);
+	set_image(game, 1, TX_WALL);
+	set_image(game, 2, TX_COLLEC);
+	set_image(game, 3, TX_EXIT_CLOSED);
+	set_image(game, 4, TX_EXIT_OPEN);
+	set_image(game, 5, TX_PLAYER_FRONT);
+	set_image(game, 6, TX_PLAYER_BACK);
+}
+
+static void	print_image(int img_index, size_t r, size_t c, t_game *game)
+{
+	int	pos_x;
+	int	pos_y;
+	int res;
+
+	pos_x = CELL_LEN_PX * c;
+	pos_y = CELL_LEN_PX * r;
+	res = mlx_image_to_window(game->mlx, game->images[img_index],
+		pos_x, pos_y);
+	if (res < 0)
+		error_game("Failed to print image in the window.", game);
+}
+
+void	put_map_base(t_game *game)
 {
 	size_t	r;
 	size_t	c;
-	int		ch;
+	char	ch;
 
-	r = -1;
-	while (++r < data->map->rows)
+	r = 0;
+	while (r < game->map->rows)
 	{
-		c = -1;
-		while (++c < data->map->cols)
+		c = 0;
+		while (c < game->map->cols)
 		{
-			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-				data->sprites['0'], c * data->cell_w, r * data->cell_h);
-			ch = data->map->content[r][c];
-			if (ch != '0')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->sprites[ch], c * data->cell_w, r * data->cell_h);
+			print_image(0, r, c, game);
+			ch = game->map->content[r][c];
+			if (ch == '1')
+				print_image(1, r, c, game);
+			else if (ch == 'C')
+				print_image(2, r, c, game);
+			else if (ch == 'E')
+				print_image(3, r, c, game);	
+			else if (ch == 'P')
+				print_image(5, r, c, game);	
+			c++;
 		}
-	}	
-}
-
-static void	create_window(char *win_name, t_data *data)
-{	
-	size_t	win_width;
-	size_t	win_height;
-
-	data->mlx_ptr = mlx_init();
-	if (!data->mlx_ptr)
-		error_exit(ERR_MLX, data->map); // TODO
-	win_width = CELL_LEN_PX * data->map->cols;
-	win_height = CELL_LEN_PX * data->map->rows;
-	data->win_ptr = mlx_new_window(data->mlx_ptr, win_width, win_height,
-		win_name);
-	if (!data->win_ptr)
-	{
-		free(data->mlx_ptr);
-		error_exit(ERR_MLX, data->map); // TODO
+		r++;
 	}
 }
 
 void	display_game(t_map *map, char *game_name)
 {
-	t_data	data;
+	t_game	*game;
 
-	data.map = map;
-	data.moves = 0;
-	data.exit_open = 0;
-	// Create window + load sprites in memory (in struct);
-	create_window(game_name, &data);
-	if (!load_sprites(&data))
-		error_exit(ERR_SPRITE, map); // TODO
-	// Update map content based on input + display it
-	display_sprites(&data);
-	mlx_key_hook(data.win_ptr, &on_keypress, &data);
-	// Repeat the previous point until window is closed or player wins
-	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy,
-		&data);
-	mlx_loop_hook(data.mlx_ptr, &on_loop, &data);
-	mlx_loop(data.mlx_ptr);
-	ft_printf("YOU WON!\n");
+	game = malloc(sizeof(t_game)); // TODO alloc error
+	if (!game)
+		error_game("Error allocating the game.", game);
+	game->name = game_name;
+	game->map = map;
+	game->mlx = open_window(game);
+	set_images(game);
+	put_map_base(game);
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
 }

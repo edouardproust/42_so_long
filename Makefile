@@ -1,59 +1,46 @@
 NAME = so_long
 
 C_DIR = src/
-C_FILES = main.c \
-	map_init.c \
-	map_init_validate.c \
-	map_init_validate_path.c \
-	display.c \
-	display_events.c \
-	display_move.c \
-	utils.c \
-	utils_exit.c
-
-C_PATHS = $(addprefix $(C_DIR), $(C_FILES))
-O_PATHS = $(C_PATHS:.c=.o)
+C_FILES = $(shell find ./src -iname "*.c")
+O_FILES = $(C_FILES:.c=.o)
 
 H_DIR = include/
-H_FILES = so_long.h \
-	exit_status.h \
-	map.h \
-	display.h
-H_PATHS = $(addprefix $(H_DIR), $(H_FILES))
+H_FILES = $(shell find ./include -iname "*.h")
 
-PRINTF_DIR = lib/printf/
-PRINTF = $(PRINTF_DIR)libftprintf.a
+LIBPRINTF_DIR = lib/printf/
+LIBPRINTF = $(LIBPRINTF_DIR)libftprintf.a
 
-MLX_DIR = lib/minilibx_linux/
-MLX = $(MLX_DIR)libmlx_Linux.a
+LIBMLX_DIR = lib/mlx42/
+LIBMLX = $(LIBMLX_DIR)build/libmlx42.a
 
 CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I$(MLX_DIR) -I$(H_DIR) -I$(PRINTF_DIR) -I$(PRINTF_DIR)libft/
-LIBS = $(PRINTF) $(MLX) -L/usr/lib/X11 -lXext -lX11 -lm -lz
+INCLUDES = -I$(LIBMLX_DIR)include/MLX42 -I$(H_DIR) -I$(LIBPRINTF_DIR) -I$(LIBPRINTF_DIR)libft
+LIBS = $(LIBPRINTF) $(LIBMLX) -ldl -lglfw -pthread -lm
 
-all: make_libft make_mlx $(NAME)
+all: libprintf libmlx $(NAME)
 
-%.o: %.c Makefile $(H_PATHS) $(PRINTF) $(MLX)
+%.o: %.c Makefile $(H_FILES) $(LIBPRINTF) $(LIBMLX)
 	cc $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
-make_libft:
-	$(MAKE) -C $(PRINTF_DIR)
+libprintf:
+	$(MAKE) -C $(LIBPRINTF_DIR)
 
-make_mlx:
-	$(MAKE) -C $(MLX_DIR)
+libmlx:
+	cmake $(LIBMLX_DIR) -B $(LIBMLX_DIR)/build
+	make -C $(LIBMLX_DIR)/build -j4
 
-$(NAME): $(O_PATHS) $(PRINTF)
-	cc $(CFLAGS) -o $@ $(O_PATHS) $(LIBS)
+$(NAME): $(O_FILES)
+	cc -o $@ $(O_FILES) $(LIBS)
 
 clean:
-	rm -f $(O_PATHS)
-	$(MAKE) -C $(PRINTF_DIR) clean
+	rm -f $(O_FILES)
+	$(MAKE) -C $(LIBPRINTF_DIR) clean
+	rm -rf $(LIBMLX)/build
  
 fclean: clean
 	rm -f $(NAME)
-	rm -f $(PRINTF)
+	rm -f $(LIBPRINTF)
 
-re:
-	$(MAKE) all
+re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all libprintf libmlx clean fclean re

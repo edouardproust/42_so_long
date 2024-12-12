@@ -6,13 +6,13 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/11 20:42:22 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/12 19:47:40 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#define DEBUG 0 //TODO remove
+#define DEBUG 1 //TODO remove
 
 /**
  * `so_long` is a 2D game where a character collects items in a map, then
@@ -30,7 +30,7 @@ int	main(int ac, char **av)
 	int		r;
 
 	if (ac != 2)
-		error_exit(ERR_ARGS, NULL);
+		error_map(ERR_ARGS, NULL);
 	map = map_init(av[1]);
 	// TODO DEBUG START
 	if (DEBUG)
