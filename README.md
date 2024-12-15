@@ -7,7 +7,7 @@
 1. Install dependancies for Ubuntu: 
 ```
 sudo apt update
-sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+sudo apt install cmake build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 ```
 
 2. Build game

@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/12 19:47:40 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/15 02:09:26 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,15 @@
 int	main(int ac, char **av)
 {
 	t_map	*map;
-	int		r;
 
 	if (ac != 2)
 		error_map(ERR_ARGS, NULL);
 	map = map_init(av[1]);
-	// TODO DEBUG START
-	if (DEBUG)
-	{
-		ft_printf("rows: %d\ncols: %d\n", map->rows, map->cols);
-		ft_printf("points: P[%d, %d], E[%d, %d]\n", map->player->x, map->player->y,
-			map->exit->x, map->exit->y);
-		ft_printf("collectibles: %d\n", map->c_count);
-		ft_printf("map:\n");
-		r = 0;
-		while (map->content[r])
-			ft_printf("%s\n", map->content[r++]);
-	}
-	// TODO DEBUG END
-	display_game(map, "Pognon Knight");
-	free_map(map);
+	//TODO DEBUG START
+	size_t r = 0;
+	while (r < map->rows)
+		ft_printf("%s\n", map->content[r++]);
+	//TODO DEBUG END
+	display_game(map);
 	return (0);
 }

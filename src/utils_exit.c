@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 00:48:14 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/12 20:09:12 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/14 22:13:01 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,32 @@ void	free_map(t_map *map)
 	}
 }
 
-void	error_game(char *msg, t_game *game)
+void	free_game(t_game *game)
 {
+	size_t	i;
+
 	if (game)
 	{
-		free_map(game->map);
-		if (game->mlx != NULL)
-			mlx_terminate(game->mlx);	
+		if (game->map)
+			free_map(game->map);
+		i = 0;
+		while (i < game->images_count)
+		{
+			if (game->images[i])
+				mlx_delete_image(game->mlx, game->images[i]);
+			i++;
+		}
+		if (game->mlx)
+			mlx_close_window(game->mlx);
+		mlx_terminate(game->mlx);
 		free(game);
 	}
+}
+
+void	error_game(char *msg, t_game *game)
+{	
 	ft_printf("Error\n%s\n", msg);
+	free_game(game);
 	exit(EXIT_FAILURE);
 }
 
