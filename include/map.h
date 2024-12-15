@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 01:56:19 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/11 18:50:00 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/12 20:10:14 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,6 @@
 # include <unistd.h>
 
 # define BUFFER_SIZE 100
-
-typedef struct s_point {
-	int	x;
-	int	y;
-}	t_point;
-
-typedef struct s_map {
-	char	**content;
-	size_t	rows;
-	size_t	cols;
-	t_point	*player;
-	t_point	*exit;
-	int		c_count;
-}	t_map;
 
 // map_init.c
 t_map	*map_init(char *filepath);
@@ -47,10 +33,5 @@ void	validate_map_path(t_map *map);
 // utils.c
 int		charinset(char c, char *set);
 void	set_point(t_point **point, size_t x, size_t y, t_map *map);
-// utils_exit.c
-void	free_map(t_map *map);
-void	free_matrix(char **arr, int	max_index);
-void	error_exit(char *msg, t_map *map);
-void	error_alloc(t_map *map);
 
 #endif
