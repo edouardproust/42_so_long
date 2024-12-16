@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   config_game.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:13:50 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 03:48:04 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 14:17:17 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
-
-# include "MLX42.h"
+#ifndef CONFIG_GAME_H
+# define CONFIG_GAME_H
 
 # define GAME_NAME "Pognon Knight"
+
+# define BUFFER_SIZE 100
 
 # define CELL_LEN_PX 60
 # define MOVE_TIMEOUT 3
@@ -71,36 +71,5 @@
 # define MOVES_BG_HEIGHT 44
 # define MOVES_LABEL_X 60
 # define MOVES_LABEL_Y 16
-
-// display_init.c
-void	display_game(t_map *map);
-
-// display_init_map.c
-void put_game_map(t_game *game);
-
-// display_events.c
-void	on_key_press(mlx_key_data_t keydata, void *param);
-
-// display_move_player.c
-void move_player(int dir_x, int dir_y, t_game *game);
-
-// display_update_data.c
-void	update_collectibles(t_point *dest, t_game *game);
-void	update_is_win(t_game *game);
-void	update_print_moves(t_game *game);
-
-// display_utils.c
-void	set_image(char *filepath, int index, t_game *game);
-size_t  get_instance_index(mlx_image_t *img, int r, int c);
-void	replace_image(t_game *game, int old_image_index, int new_image_index, int instance_index);
-mlx_instance_t	*print_image(int img_index, t_point *pt, t_game *game, bool show);
-mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt, t_game *game);
-
-// utils.c
-t_point *set_gpoint(t_point *pt, int x, int y, int z);
-t_point *update_gpoint(t_point *pt, char xyz, int val);
-
-// utils_exit.c
-void	free_game(t_game *game);
 
 #endif

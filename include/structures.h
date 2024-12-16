@@ -1,14 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:52:32 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 03:47:25 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 14:16:52 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef STRUCTURES_H
+# define STRUCTURES_H
 
 typedef struct s_point
 {
@@ -44,3 +47,5 @@ typedef struct s_game
 	int			player_img_index;
 	char		player_map_char;
 }	t_game;
+
+#endif

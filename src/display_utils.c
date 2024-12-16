@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:42:46 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 00:59:20 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:31:36 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,17 @@ mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt, t_game *g
 
 void replace_image(t_game *game, int old_image_index, int new_image_index, int instance_index)
 {
-    mlx_image_t *old_image;
-    mlx_image_t *new_image;
+	mlx_image_t *old_image;
+	mlx_image_t *new_image;
 
-    old_image = game->images[old_image_index];
-    new_image = game->images[new_image_index];
-    if (!old_image || !new_image)
-    {
-        ft_printf("Error: Invalid image index.\n"); // TODO
-        return;
-    }
+	old_image = game->images[old_image_index];
+	new_image = game->images[new_image_index];
+	if (!old_image || !new_image)
+		error_game(ERR_MLX_IMG_REP, game);
 	if (instance_index < 0)
 		instance_index = 0;
-    old_image->instances[instance_index].enabled = false;
-    new_image->instances[instance_index].enabled = true;
+	old_image->instances[instance_index].enabled = false;
+	new_image->instances[instance_index].enabled = true;
 }
 
 size_t	get_instance_index(mlx_image_t *img, int r, int c)

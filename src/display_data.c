@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:33:20 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 03:54:36 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:10:32 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	update_print_moves(t_game *game)
 	char	*nb;
 
 	game->moves++;
-	mlx_delete_image(game->mlx, game->images[TX_MOVES_COUNT_I]);
 	nb = ft_itoa(game->moves);
 	if (!nb)
 		error_game(ERR_ALLOC, game);
 	set_gpoint(&pt, ft_strlen(TX_MOVES_LABEL) * 22, MOVES_LABEL_Y,
 		MOVES_COUNTER_Z + 2);
 	print_image_str(TX_MOVES_COUNT_I, nb, &pt, game);
+	free(nb);
 }

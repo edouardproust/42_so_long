@@ -21,7 +21,22 @@ make
 ```
 ./so_long <map_filepath>
 ```
-Replace `map_filepath` by the path of any map located in the `maps/` folder. Example:
+Replace `map_filepath` by the path of any map located in the `test/maps/` folder. Example:
 ```
-./so_long maps/0.prologue.ber
+./so_long test/maps/0.prologue.ber
 ```
+
+## Leaks
+
+Valgrind test is returning a summury containing "still reachable" blocks:
+```
+==14110== LEAK SUMMARY:
+==14110==    definitely lost: 0 bytes in 0 blocks
+==14110==    indirectly lost: 0 bytes in 0 blocks
+==14110==      possibly lost: 0 bytes in 0 blocks
+==14110==    still reachable: 309,526 bytes in 3,127 blocks
+==14110==         suppressed: 0 bytes in 0 blocks
+```
+This is the only fact of the library dependencies (see [Github issue #130](https://github.com/codam-coding-college/MLX42/issues/130) and is nothing related with my program.
+
+To prove that, i made the most minimalistic program using MLX42 library (simply opening and closing a window). You can run it using `cd test/lib_leaks_proof && make`. You will see that the valgrind summury is exactly the same as the one above.

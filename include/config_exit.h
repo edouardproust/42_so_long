@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   config_exit.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:42:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 04:45:42 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:19:29 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef CONFIG_EXIT_H
+# define CONFIG_EXIT_H
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
@@ -42,14 +42,9 @@
 # define ERR_MLX_INIT "Failed initializing MLX library."
 # define ERR_MLX_TX "Failed loading texture to memory."
 # define ERR_MLX_IMG "Failed converting texture into image."
+# define ERR_MLX_IMG_REP "Invalid image index to replace."
 # define ERR_MLX_IMG_CREATE "Failed to create MLX image."
 # define ERR_MLX_STR "Failed converting string into image."
 # define ERR_MLX_WIN "Failed printing image in the window."
-
-void	free_matrix(char **arr, int max_index);
-void	free_map(t_map *map);
-void	error_map(char *msg, t_map *map);
-void	error_game(char *msg, t_game *game);
-void	error_alloc(t_map *map);
 
 #endif

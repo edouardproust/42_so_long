@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 00:48:14 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 02:53:49 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:14:58 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,16 @@ void	free_map(t_map *map)
 
 void	free_game(t_game *game)
 {
-	size_t	i;
-
 	if (game)
 	{
 		if (game->map)
 			free_map(game->map);
-		i = 0;
-		while (i < game->images_count)
-		{
-			if (game->images[i])
-				mlx_delete_image(game->mlx, game->images[i]);
-			i++;
-		}
 		if (game->mlx)
+		{	
 			mlx_close_window(game->mlx);
-		mlx_terminate(game->mlx);
+			mlx_terminate(game->mlx);
+			game->mlx = NULL;
+		}
 		free(game);
 	}
 }
