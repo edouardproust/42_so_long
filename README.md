@@ -21,7 +21,7 @@ make
 ```
 ./so_long <map_filepath>
 ```
-Replace `map_filepath` by the path of any map located in the `levels/` folder. Example:
+Replace `map_filepath` by the path of any map located in the `maps/` folder. Example:
 ```
-./so_long levels/0.prologue.ber
+./so_long maps/0.prologue.ber
 ```
