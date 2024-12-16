@@ -21,7 +21,7 @@ make
 ```
 ./so_long <map_filepath>
 ```
-Replace `map_filepath` by the path of any map path located in `test/map/` folder. Example:
+Replace `map_filepath` by the path of any map located in `test/map/` folder. Example:
 ```
 ./so_long test/map/5.suspicious_meadow.ber
 ```
