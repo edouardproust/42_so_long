@@ -16,3 +16,12 @@ git clone https://github.com/edouardproust/42_so_long.git so_long
 cd so_long
 make
 ```
+
+3. Play
+```
+./so_long <map_filepath>
+```
+Replace `map_filepath` by any map path located in `test/map/` folder. Example:
+```
+./so_long test/map/5.suspicious_meadow.ber
+```
