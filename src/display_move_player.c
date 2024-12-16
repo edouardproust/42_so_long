@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:13:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 01:11:57 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:48:48 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void move_player(int dir_x, int dir_y, t_game *game)
 	update_collectibles(&dest, game);
 	update_player_position(&dest, game);
 	update_player_sprite(&dest, dir_x, dir_y, game);
-	if (game->map->b_count == 1)
-		update_boss_position(game);
 	update_print_moves(game);
 	update_is_win(game);
 }

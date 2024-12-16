@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:33:55 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 23:27:03 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:50:54 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	validate_map_elements(t_map *map)
 		error_map(ERR_MAP_E, map);
 	if (map->p_count != 1)
 		error_map(ERR_MAP_P, map);
-	if (map->b_count > 1)
-		error_map(ERR_MAP_B, map);
 }
 
 /**

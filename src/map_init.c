@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:34:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 23:28:16 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:59:20 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	set_map_content(char *filepath, t_map **map)
 	(*map)->c_count = 0;
 	(*map)->e_count = 0;
 	(*map)->p_count = 0;
-	(*map)->b_count = 0;
 }
 
 /**
@@ -98,7 +97,7 @@ void	set_map_points(t_map *map)
 		c = -1;
 		while (map->content[r][++c])
 		{
-			if (!charinset(map->content[r][c], "10CEPXB"))
+			if (!charinset(map->content[r][c], "10CEPX"))
 				error_map(ERR_MAP_CHARS, map);
 			if (map->content[r][c] == 'C')
 				map->c_count++;
@@ -111,11 +110,6 @@ void	set_map_points(t_map *map)
 			{
 				set_point(&map->exit, c, r, map);
 				map->e_count++;
-			}
-			else if (map->content[r][c] == 'B')
-			{
-				set_point(&map->boss, c, r, map);
-				map->b_count++;
 			}
 		}
 	}

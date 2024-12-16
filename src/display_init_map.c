@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:41:58 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 00:45:25 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:53:39 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,6 @@ static void	put_cell_characters(t_point *cell_pt, char cell_char,
 		update_gpoint(cell_pt, 'z', TX_ENEMY_Z);
 		print_image(TX_ENEMY_I, cell_pt, game, true);
 	}
-	if (cell_char == 'B')
-	{
-		update_gpoint(cell_pt, 'z', TX_BOSS_Z);
-		print_image(TX_BOSS_FRONT_I, cell_pt, game, true);
-		print_image(TX_BOSS_RIGHT_I, cell_pt, game, false);
-		print_image(TX_BOSS_LEFT_I, cell_pt, game, false);
-		print_image(TX_BOSS_BACK_I, cell_pt, game, false);	
-	}
 }
 
 // Display game first screen (initial state before any moves)
@@ -109,4 +101,3 @@ void	put_game_map(t_game *game)
 	}
 	put_moves_counter(game);
 }
-

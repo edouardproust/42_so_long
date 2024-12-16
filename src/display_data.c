@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:33:20 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 01:08:57 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:54:36 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	update_is_win(t_game *game)
 {
 	if (game->exit_status == 2 && game->player_map_char == 'E')
 		game->is_win = 1;
-	else if (game->player_map_char == 'X'
-		|| (game->player.x == game->boss.x && game->player.y == game->boss.y))
+	else if (game->player_map_char == 'X')
 		game->is_win = -1;
 	else
 		game->is_win = 0;

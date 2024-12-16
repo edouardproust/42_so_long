@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:36:31 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 03:11:38 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:49:26 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ static void	set_images(t_game *game)
 	set_image(TX_PLAYER_LEFT, TX_PLAYER_LEFT_I, game);
 	set_image(TX_PLAYER_BACK, TX_PLAYER_BACK_I, game);
 	set_image(TX_ENEMY, TX_ENEMY_I, game);
-	if (game->map->b_count == 1)
-	{
-		set_image(TX_BOSS_FRONT, TX_BOSS_FRONT_I, game);
-		set_image(TX_BOSS_RIGHT, TX_BOSS_RIGHT_I, game);
-		set_image(TX_BOSS_LEFT, TX_BOSS_LEFT_I, game);
-		set_image(TX_BOSS_BACK, TX_BOSS_BACK_I, game);
-	}
 	set_image(TX_MOVES_BG, TX_MOVES_BG_I, game);
 }
 
@@ -68,12 +61,6 @@ static t_game *init_game_data(t_map *map)
 	game->player.x = map->player.x;
 	game->player.y = map->player.y;
 	game->player_img_index = TX_PLAYER_FRONT_I;
-	game->boss_img_index = TX_BOSS_FRONT_I;
-	if (map->b_count == 1)
-	{
-		game->boss.x = map->boss.x;
-		game->boss.y = map->boss.y;
-	}
 	return (game);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:13:50 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 02:41:07 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:48:04 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,24 @@
 # define TX_PLAYER_BACK_I 10
 # define TX_ENEMY "asset/enemy.png"
 # define TX_ENEMY_I 11
-# define TX_BOSS_FRONT "asset/boss_front.png"
-# define TX_BOSS_FRONT_I 12
-# define TX_BOSS_RIGHT "asset/boss_right.png"
-# define TX_BOSS_RIGHT_I 13
-# define TX_BOSS_LEFT "asset/boss_left.png"
-# define TX_BOSS_LEFT_I 14
-# define TX_BOSS_BACK "asset/boss_back.png"
-# define TX_BOSS_BACK_I 15
 # define TX_MOVES_BG "asset/ribbon.png"
-# define TX_MOVES_BG_I 16
+# define TX_MOVES_BG_I 12
 # define TX_MOVES_LABEL "Moves:"
-# define TX_MOVES_LABEL_I 17
+# define TX_MOVES_LABEL_I 13
 # define TX_MOVES_COUNT	"0"
-# define TX_MOVES_COUNT_I 18
+# define TX_MOVES_COUNT_I 14
 # define TX_END_SCREEN_BG "asset/text_bg_op70.png"
-# define TX_END_SCREEN_BG_I 19
+# define TX_END_SCREEN_BG_I 15
 # define TX_WIN "asset/win.png"
 # define TX_GAMEOVER "asset/fail.png"
-# define TX_WIN_GAMEOVER_I 20
+# define TX_WIN_GAMEOVER_I 16
 
 # define TX_FLOOR_Z 0
 # define TX_WALL_Z 8
 # define TX_EXIT_Z 2
 # define TX_COLLEC_Z 2
-# define TX_PLAYER_Z 6
-# define TX_ENEMY_Z 4
-# define TX_BOSS_Z 5
+# define TX_PLAYER_Z 4
+# define TX_ENEMY_Z 5
 # define MOVES_COUNTER_Z 10
 # define TX_END_SCREEN_Z 20
 
@@ -92,9 +83,6 @@ void	on_key_press(mlx_key_data_t keydata, void *param);
 
 // display_move_player.c
 void move_player(int dir_x, int dir_y, t_game *game);
-
-// display_move_boss.c
-void	update_boss_position(t_game *game);
 
 // display_update_data.c
 void	update_collectibles(t_point *dest, t_game *game);
