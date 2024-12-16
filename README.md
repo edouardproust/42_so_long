@@ -17,7 +17,7 @@ cd so_long
 make
 ```
 
-3. Play
+## Play
 ```
 ./so_long <map_filepath>
 ```
