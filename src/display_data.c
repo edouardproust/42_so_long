@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:33:20 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 03:29:05 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 01:08:57 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,15 @@ void update_collectibles(t_point *dest, t_game *game)
 }
 
 // Checks if the player has won
-int	check_victory(t_point *dest, t_game *game)
+void	update_is_win(t_game *game)
 {
-	t_point *exit;
-
-	exit = game->map->exit;
-	if (game->exit_status == 2 && exit->y == dest->y && exit->x == dest->x)
-	{
-		ft_printf("YOU WON!\n");
-		mlx_close_window(game->mlx);
-		return (1);
-	}
-	return (0);
+	if (game->exit_status == 2 && game->player_map_char == 'E')
+		game->is_win = 1;
+	else if (game->player_map_char == 'X'
+		|| (game->player.x == game->boss.x && game->player.y == game->boss.y))
+		game->is_win = -1;
+	else
+		game->is_win = 0;
 }
 
 void	update_print_moves(t_game *game)
@@ -57,12 +54,11 @@ void	update_print_moves(t_game *game)
 	char	*nb;
 
 	game->moves++;
-	ft_printf("Moves: %d\n", game->moves);
 	mlx_delete_image(game->mlx, game->images[TX_MOVES_COUNT_I]);
 	nb = ft_itoa(game->moves);
 	if (!nb)
 		error_game(ERR_ALLOC, game);
 	set_gpoint(&pt, ft_strlen(TX_MOVES_LABEL) * 22, MOVES_LABEL_Y,
-		MOVES_BG_Z + 2);
+		MOVES_COUNTER_Z + 2);
 	print_image_str(TX_MOVES_COUNT_I, nb, &pt, game);
 }

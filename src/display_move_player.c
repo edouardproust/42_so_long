@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_player.c                                   :+:      :+:    :+:   */
+/*   display_move_player.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:13:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 02:49:50 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 01:11:57 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 // Updates the player's position in the map
 static void update_player_position(t_point *dest, t_game *game)
 {
-	t_point *pt;
-
-	pt = game->map->player;
-	game->map->content[pt->y][pt->x] = '0';
-	update_gpoint(pt, 'x', dest->x);
-	update_gpoint(pt, 'y', dest->y);
-	game->map->content[dest->y][dest->x] = 'P';
+	update_gpoint(&game->player, 'x', dest->x);
+	update_gpoint(&game->player, 'y', dest->y);
+	game->player_map_char = game->map->content[dest->y][dest->x];
 }
 
 static void update_player_sprite(t_point *dest, int dir_x, int dir_y, t_game *game)
@@ -54,18 +50,17 @@ static void update_player_sprite(t_point *dest, int dir_x, int dir_y, t_game *ga
 // Moves the player in the given direction
 void move_player(int dir_x, int dir_y, t_game *game)
 {
-	t_point *origin;
 	t_point dest;
 
-	origin = game->map->player;
-	check_victory(origin, game);
-	dest.x = origin->x + dir_x;
-	dest.y = origin->y + dir_y;
+	dest.x = game->player.x + dir_x;
+	dest.y = game->player.y + dir_y;
 	if (game->map->content[dest.y][dest.x] == '1')
 		return ;
 	update_collectibles(&dest, game);
 	update_player_position(&dest, game);
 	update_player_sprite(&dest, dir_x, dir_y, game);
-	if (!check_victory(&dest, game))
-		update_print_moves(game);
+	if (game->map->b_count == 1)
+		update_boss_position(game);
+	update_print_moves(game);
+	update_is_win(game);
 }

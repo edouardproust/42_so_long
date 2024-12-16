@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 19:29:27 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/14 20:41:30 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/15 17:41:04 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ int	charinset(char c, char *set)
 	return (0);
 }
 
-void	set_point(t_point **point, size_t x, size_t y, t_map *map)
+void	set_point(t_point *point, size_t x, size_t y, t_map *map)
 {
-	if (!*point)
+	if (!point)
 	{
-		*point = malloc(sizeof(t_point));
-		if (!*point)
+		point = malloc(sizeof(t_point));
+		if (!point)
 			error_map(ERR_ALLOC, map);
 	}
-	(*point)->x = x;
-	(*point)->y = y;
+	point->x = x;
+	point->y = y;
 }
 
 t_point	*set_gpoint(t_point *pt, int x, int y, int z)

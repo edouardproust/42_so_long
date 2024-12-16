@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:13:50 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 03:29:47 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 02:41:07 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,40 @@
 # define TX_PLAYER_LEFT_I 9
 # define TX_PLAYER_BACK "asset/player_back.png"
 # define TX_PLAYER_BACK_I 10
-# define TX_ENEMY_FRONT "asset/enemy_front.png"
-# define TX_ENEMY_FRONT_I 11
-# define TX_ENEMY_RIGHT "asset/enemy_right.png"
-# define TX_ENEMY_RIGHT_I 12
-# define TX_ENEMY_LEFT "asset/enemy_left.png"
-# define TX_ENEMY_LEFT_I 13
-# define TX_ENEMY_BACK "asset/enemy_back.png"
-# define TX_ENEMY_BACK_I 14
-
+# define TX_ENEMY "asset/enemy.png"
+# define TX_ENEMY_I 11
+# define TX_BOSS_FRONT "asset/boss_front.png"
+# define TX_BOSS_FRONT_I 12
+# define TX_BOSS_RIGHT "asset/boss_right.png"
+# define TX_BOSS_RIGHT_I 13
+# define TX_BOSS_LEFT "asset/boss_left.png"
+# define TX_BOSS_LEFT_I 14
+# define TX_BOSS_BACK "asset/boss_back.png"
+# define TX_BOSS_BACK_I 15
 # define TX_MOVES_BG "asset/ribbon.png"
-# define TX_MOVES_BG_I 15
+# define TX_MOVES_BG_I 16
 # define TX_MOVES_LABEL "Moves:"
-# define TX_MOVES_LABEL_I 16
+# define TX_MOVES_LABEL_I 17
 # define TX_MOVES_COUNT	"0"
-# define TX_MOVES_COUNT_I 17
+# define TX_MOVES_COUNT_I 18
+# define TX_END_SCREEN_BG "asset/text_bg_op70.png"
+# define TX_END_SCREEN_BG_I 19
+# define TX_WIN "asset/win.png"
+# define TX_GAMEOVER "asset/fail.png"
+# define TX_WIN_GAMEOVER_I 20
+
+# define TX_FLOOR_Z 0
+# define TX_WALL_Z 8
+# define TX_EXIT_Z 2
+# define TX_COLLEC_Z 2
+# define TX_PLAYER_Z 6
+# define TX_ENEMY_Z 4
+# define TX_BOSS_Z 5
+# define MOVES_COUNTER_Z 10
+# define TX_END_SCREEN_Z 20
 
 # define MOVES_BG_X 10
 # define MOVES_BG_Y 10
-# define MOVES_BG_Z 5
 # define MOVES_BG_WIDTH 200
 # define MOVES_BG_HEIGHT 44
 # define MOVES_LABEL_X 60
@@ -69,18 +84,21 @@
 // display_init.c
 void	display_game(t_map *map);
 
+// display_init_map.c
+void put_game_map(t_game *game);
+
 // display_events.c
 void	on_key_press(mlx_key_data_t keydata, void *param);
 
-// display_player.c
+// display_move_player.c
 void move_player(int dir_x, int dir_y, t_game *game);
 
-// utils_exit.c
-void	free_game(t_game *game);
+// display_move_boss.c
+void	update_boss_position(t_game *game);
 
-// display_data.c
+// display_update_data.c
 void	update_collectibles(t_point *dest, t_game *game);
-int		check_victory(t_point *dest, t_game *game);
+void	update_is_win(t_game *game);
 void	update_print_moves(t_game *game);
 
 // display_utils.c
@@ -89,7 +107,12 @@ size_t  get_instance_index(mlx_image_t *img, int r, int c);
 void	replace_image(t_game *game, int old_image_index, int new_image_index, int instance_index);
 mlx_instance_t	*print_image(int img_index, t_point *pt, t_game *game, bool show);
 mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt, t_game *game);
+
+// utils.c
 t_point *set_gpoint(t_point *pt, int x, int y, int z);
 t_point *update_gpoint(t_point *pt, char xyz, int val);
+
+// utils_exit.c
+void	free_game(t_game *game);
 
 #endif

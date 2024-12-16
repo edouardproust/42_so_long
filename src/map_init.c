@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:34:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/12 19:38:29 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/15 23:28:16 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,16 @@ static void	set_map_content(char *filepath, t_map **map)
 		error_map(ERR_ALLOC, NULL);
 	}
 	(*map)->content = content;
-	(*map)->player = NULL;
-	(*map)->exit = NULL;
 	(*map)->c_count = 0;
+	(*map)->e_count = 0;
+	(*map)->p_count = 0;
+	(*map)->b_count = 0;
 }
 
 /**
- * Counts the essential elements in the map: 'C', 'P', 'E'.
+ * Counts the essential elements in the map: 'C', 'P', 'E' and 'B'.
  */
-void	set_map_points(t_map *map, int *p_count, int *e_count)
+void	set_map_points(t_map *map)
 {
 	size_t	r;
 	size_t	c;
@@ -97,19 +98,24 @@ void	set_map_points(t_map *map, int *p_count, int *e_count)
 		c = -1;
 		while (map->content[r][++c])
 		{
-			if (!charinset(map->content[r][c], "10CEP"))
+			if (!charinset(map->content[r][c], "10CEPXB"))
 				error_map(ERR_MAP_CHARS, map);
 			if (map->content[r][c] == 'C')
 				map->c_count++;
 			else if (map->content[r][c] == 'P')
 			{
 				set_point(&map->player, c, r, map);
-				(*p_count)++;
+				map->p_count++;
 			}
 			else if (map->content[r][c] == 'E')
 			{
 				set_point(&map->exit, c, r, map);
-				(*e_count)++;
+				map->e_count++;
+			}
+			else if (map->content[r][c] == 'B')
+			{
+				set_point(&map->boss, c, r, map);
+				map->b_count++;
 			}
 		}
 	}

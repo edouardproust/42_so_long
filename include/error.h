@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 18:42:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/14 17:01:22 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/15 04:45:42 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define ERR_MAP_C "Invalid map: It must contain at least one 'C'."
 # define ERR_MAP_E "Invalid map: It must contain exactly one 'E'."
 # define ERR_MAP_P "Invalid map: It must contain exactly one 'P'."
+# define ERR_MAP_B "Invalid map: It must contain maximum one 'B'."
 # define ERR_MAP_EMPTY "Invalid map: It is empty."
 # define ERR_MAP_RECT "Invalid map: It is not rectangular."
 # define ERR_MAP_SIZE \

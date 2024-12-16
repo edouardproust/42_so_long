@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 00:48:14 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/14 22:13:01 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 02:53:49 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ void	free_map(t_map *map)
 	{
 		if (map->content != NULL)
 			free_matrix(map->content, -1);
-		if (map->player != NULL)
-			free(map->player);
-		if (map->exit != NULL)
-			free(map->exit);
 		free(map);
 	}
 }

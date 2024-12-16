@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:08:45 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 02:09:26 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 00:59:28 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		error_map(ERR_ARGS, NULL);
 	map = map_init(av[1]);
-	//TODO DEBUG START
-	size_t r = 0;
-	while (r < map->rows)
-		ft_printf("%s\n", map->content[r++]);
-	//TODO DEBUG END
 	display_game(map);
 	return (0);
 }

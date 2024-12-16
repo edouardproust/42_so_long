@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:33:55 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/12 19:43:01 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/15 23:27:03 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,15 @@ void	validate_file_ext(char *filepath, char *ext)
  */
 void	validate_map_elements(t_map *map)
 {
-	int		p_count;
-	int		e_count;
-
-	p_count = 0;
-	e_count = 0;
-	set_map_points(map, &p_count, &e_count);
+	set_map_points(map);
 	if (map->c_count < 1)
 		error_map(ERR_MAP_C, map);
-	if (e_count != 1)
+	if (map->e_count != 1)
 		error_map(ERR_MAP_E, map);
-	if (p_count != 1)
+	if (map->p_count != 1)
 		error_map(ERR_MAP_P, map);
+	if (map->b_count > 1)
+		error_map(ERR_MAP_B, map);
 }
 
 /**

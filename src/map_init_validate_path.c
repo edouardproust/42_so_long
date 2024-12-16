@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:09:33 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/12 19:41:27 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/15 17:38:46 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	map_dfs(t_mapvalid *mapvalid, int r, int c)
 	char	ch;	
 
 	ch = mapvalid->content[r][c];
-	if (ch == '1')
+	if (ch == '1' || ch == 'X')
 		return ;
 	if (ch == 'E')
 		mapvalid->exit = 1;
@@ -92,7 +92,7 @@ void	validate_map_path(t_map *map)
     }	
 	mapvalid->exit = 0;
 	mapvalid->c_count = 0;
-	map_dfs(mapvalid, map->player->y, map->player->x);
+	map_dfs(mapvalid, map->player.y, map->player.x);
 	if (mapvalid->exit == 0)
 		free_mapvalid(mapvalid, ERR_MAP_PATH_E, map);
 	else if (mapvalid->c_count != map->c_count)
