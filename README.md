@@ -1,12 +1,12 @@
 # so_long (42 School Project)
 
-**The County of Pognon Land has been destroyed by the hordes of foul, stinking goblins. Sir Pognon, returning from his campaign, is devastated to see his county in such a state. Recover the sacks of Pognon and rebuild your county to repel the wicked goblins.**
+**The County of Pognon Land has been destroyed by the hordes of stinking red goblins. Sir Pognon, returning from his campaign, is devastated to see his county in such a state. Help the valiant knight rebuild it and repel the wicked goblins.**
 
 - **Subject:** [English](./subject/en.subject.pdf) / [French](./subject/fr.subject.pdf) / [Spanish](./subject/es.subject.pdf)
 - **Location:** 42 School Barcelona
 - **Validation:** December 2024
 
-![42 push_swap debug output bottom](test/screenshot/42_push_swap__debug__output_2.png)
+![42 so_long_pognon_knight_gameplay](test/screenshot/pognon_knight_gameplay.gif)
 
 The `so_long` project is a 2D game where a character collects items in a map, then reaches an exit point.
 
