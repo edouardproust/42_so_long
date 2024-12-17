@@ -2,7 +2,8 @@
 *.swo
 *.o
 *.a
+*.bak
 subject
 test
-so_long
+so_long*
 README.md

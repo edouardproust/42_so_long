@@ -1,46 +1,54 @@
+# ===================== NAME ==============================#
+
 NAME = so_long
 
-C_DIR = src/
-C_FILES = $(shell find ./src -iname "*.c")
-O_FILES = $(C_FILES:.c=.o)
+NAME_BONUS = so_long_bonus
 
-H_DIR = include/
-H_FILES = $(shell find ./include -iname "*.h")
+# ===================== DIR ===============================#
 
-LIBPRINTF_DIR = lib/printf/
-LIBPRINTF = $(LIBPRINTF_DIR)libftprintf.a
+MANDATORY_DIR = mandatory
 
-LIBMLX_DIR = lib/mlx42/
-LIBMLX = $(LIBMLX_DIR)build/libmlx42.a
+BONUS_DIR = bonus
 
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I$(LIBMLX_DIR)include/MLX42 -I$(H_DIR) -I$(LIBPRINTF_DIR) -I$(LIBPRINTF_DIR)libft
-LIBS = $(LIBPRINTF) $(LIBMLX) -ldl -lglfw -pthread -lm
+# ===================== LIBRARIES =========================#
 
-all: libprintf libmlx $(NAME)
+PRINTF_DIR = lib/printf
 
-%.o: %.c Makefile $(H_FILES) $(LIBPRINTF) $(LIBMLX)
-	cc $(CFLAGS) -c -o $@ $< $(INCLUDES)
+PRINTF = $(PRINTF_DIR)/libftprintf.a
+
+MLX_DIR = lib/mlx42
+
+MLX = $(MLX_DIR)/build/libmlx42.a
+
+
+# ===================== RULES =============================#
+
+
+all: libprintf libmlx
+	$(MAKE) -C $(MANDATORY_DIR)
+
+bonus: libprintf libmlx
+	$(MAKE) -C $(BONUS_DIR)
 
 libprintf:
-	$(MAKE) -C $(LIBPRINTF_DIR)
+	$(MAKE) -C $(PRINTF_DIR)
 
 libmlx:
-	cmake $(LIBMLX_DIR) -B $(LIBMLX_DIR)/build
-	make -C $(LIBMLX_DIR)/build -j4
-
-$(NAME): $(O_FILES)
-	cc -o $@ $(O_FILES) $(LIBS)
+	cmake $(MLX_DIR) -B $(MLX_DIR)/build
+	$(MAKE) -C $(MLX_DIR)/build -j4
 
 clean:
-	rm -f $(O_FILES)
-	$(MAKE) -C $(LIBPRINTF_DIR) clean
-	rm -rf $(LIBMLX)/build
+	$(MAKE) -C $(MANDATORY_DIR) clean
+	$(MAKE) -C $(BONUS_DIR) clean
+	$(MAKE) -C $(PRINTF_DIR) clean
+	rm -rf $(MLX)/build
  
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(LIBPRINTF)
+	rm -rf $(NAME) $(NAME_BONUS)
 
 re: fclean all
 
-.PHONY: all libprintf libmlx clean fclean re
+
+# ===================== PHONY =============================#
+
+.PHONY: all bonus libprintf libmlx clean fclean re
