@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:42:46 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 20:31:36 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:12:58 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	set_image(char *filepath, int index, t_game *game)
 	game->images_count++;
 }
 
-mlx_instance_t	*print_image(int img_index, t_point *pt, t_game *game, bool show)
+mlx_instance_t	*print_image(int img_index, t_point *pt, t_game *game,
+	bool show)
 {
-	int instance_index;
-	mlx_image_t	*img;
+	int				instance_index;
+	mlx_image_t		*img;
 	mlx_instance_t	*inst;
 
 	img = game->images[img_index];
@@ -45,14 +46,15 @@ mlx_instance_t	*print_image(int img_index, t_point *pt, t_game *game, bool show)
 	return (inst);
 }
 
-mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt, t_game *game)
+mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt,
+	t_game *game)
 {
-	mlx_image_t	*img;
+	mlx_image_t		*img;
 	mlx_instance_t	*inst;
 
 	img = mlx_put_string(game->mlx, str, pt->x, pt->y);
-    if (!img)
- 		error_game(ERR_MLX_STR, game);
+	if (!img)
+		error_game(ERR_MLX_STR, game);
 	game->images[img_index] = img;
 	game->images_count++;
 	inst = &img->instances[0];
@@ -60,10 +62,11 @@ mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt, t_game *g
 	return (inst);
 }
 
-void replace_image(t_game *game, int old_image_index, int new_image_index, int instance_index)
+void	replace_image(t_game *game, int old_image_index, int new_image_index,
+	int instance_index)
 {
-	mlx_image_t *old_image;
-	mlx_image_t *new_image;
+	mlx_image_t	*old_image;
+	mlx_image_t	*new_image;
 
 	old_image = game->images[old_image_index];
 	new_image = game->images[new_image_index];

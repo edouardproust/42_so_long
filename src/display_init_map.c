@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:41:58 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 20:02:13 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:07:16 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	put_cell_fixed_elements(t_point *cell_pt, char cell_char,
 	t_game *game)
 {
 	update_gpoint(cell_pt, 'z', TX_FLOOR_Z);
-	print_image(TX_FLOOR_I, cell_pt, game, true);	
+	print_image(TX_FLOOR_I, cell_pt, game, true);
 	if (cell_char == '1')
 	{
 		update_gpoint(cell_pt, 'z', TX_WALL_Z);
@@ -93,9 +93,9 @@ void	put_game_map(t_game *game)
 		{
 			cell_char = game->map->content[r][c];
 			set_gpoint(&cell_pt, c * CELL_LEN_PX, r * CELL_LEN_PX, 0);
-			put_cell_fixed_elements(&cell_pt, cell_char, game);	
-			put_cell_goal_elements(&cell_pt, cell_char, game);	
-			put_cell_characters(&cell_pt, cell_char, game);	
+			put_cell_fixed_elements(&cell_pt, cell_char, game);
+			put_cell_goal_elements(&cell_pt, cell_char, game);
+			put_cell_characters(&cell_pt, cell_char, game);
 			c++;
 		}
 		r++;

@@ -6,18 +6,11 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:09:33 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 17:38:46 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:21:30 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-typedef struct s_mapvalid {
-	char    **content;
-	int		exit;
-	int		c_count;
-}	t_mapvalid;
-
 
 static char	**map_dup_content(char **content, size_t len)
 {
@@ -41,7 +34,7 @@ static char	**map_dup_content(char **content, size_t len)
 
 static void	free_mapvalid(t_mapvalid *mapvalid, char *msg, t_map *map)
 {
-	free_matrix(mapvalid->content, -1);	
+	free_matrix(mapvalid->content, -1);
 	free(mapvalid);
 	if (msg && map)
 		error_map(msg, map);
@@ -81,15 +74,15 @@ void	validate_map_path(t_map *map)
 {
 	t_mapvalid	*mapvalid;
 
-    mapvalid = malloc(sizeof(t_mapvalid));
-    if (!mapvalid)
+	mapvalid = malloc(sizeof(t_mapvalid));
+	if (!mapvalid)
 		error_map(ERR_ALLOC, map);
 	mapvalid->content = map_dup_content(map->content, map->rows);
 	if (!mapvalid->content)
 	{
-        free(mapvalid);
+		free(mapvalid);
 		error_map(ERR_ALLOC, map);
-    }	
+	}
 	mapvalid->exit = 0;
 	mapvalid->c_count = 0;
 	map_dfs(mapvalid, map->player.y, map->player.x);

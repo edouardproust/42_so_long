@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:52:32 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 14:16:52 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:18:31 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct s_map
 	int		p_count;
 	int		b_count;
 }	t_map;
+
+typedef struct s_mapvalid
+{
+	char	**content;
+	int		exit;
+	int		c_count;
+}	t_mapvalid;
 
 typedef struct s_game
 {

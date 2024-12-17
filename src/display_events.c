@@ -6,13 +6,13 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:46:14 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 03:10:09 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 02:19:54 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void put_end_screen(t_game *game, int is_win)
+static void	put_end_screen(t_game *game, int is_win)
 {
 	t_point	pt;
 	int		win_width;
@@ -36,7 +36,7 @@ void put_end_screen(t_game *game, int is_win)
 	print_image(TX_WIN_GAMEOVER_I, &pt, game, true);
 }
 
-void on_key_press(mlx_key_data_t keydata, void *param)
+void	on_key_press(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
 	int		key;
@@ -44,9 +44,9 @@ void on_key_press(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	key = keydata.key;
 	if (keydata.action != MLX_PRESS)
-			return ;
+		return ;
 	if (key == MLX_KEY_ESCAPE || (key == MLX_KEY_ENTER && game->is_win == -2))
-			mlx_close_window(game->mlx);
+		mlx_close_window(game->mlx);
 	else if (game->is_win == 0)
 	{
 		if (key == MLX_KEY_RIGHT || key == MLX_KEY_D)

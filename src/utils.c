@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 19:29:27 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/15 17:41:04 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:13:50 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_point	*set_gpoint(t_point *pt, int x, int y, int z)
 	return (pt);
 }
 
-t_point *update_gpoint(t_point *pt, char xyz, int val)
+t_point	*update_gpoint(t_point *pt, char xyz, int val)
 {
 	if (!pt)
 		return (NULL);

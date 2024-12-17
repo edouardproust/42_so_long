@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 00:48:14 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 20:14:58 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:15:09 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * If max_index is -1, it frees up to the first NULL entry. If max_index
  * is non-negative, it frees all rows up to, but not including, max_index.
  */
-void	free_matrix(char **arr, int	max_index)
+void	free_matrix(char **arr, int max_index)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ void	free_game(t_game *game)
 		if (game->map)
 			free_map(game->map);
 		if (game->mlx)
-		{	
+		{
 			mlx_close_window(game->mlx);
 			mlx_terminate(game->mlx);
 			game->mlx = NULL;
@@ -60,7 +60,7 @@ void	free_game(t_game *game)
 }
 
 void	error_game(char *msg, t_game *game)
-{	
+{
 	ft_printf("Error\n%s\n", msg);
 	free_game(game);
 	exit(EXIT_FAILURE);

@@ -6,25 +6,26 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:13:36 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 03:48:48 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:09:19 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 // Updates the player's position in the map
-static void update_player_position(t_point *dest, t_game *game)
+static void	update_player_position(t_point *dest, t_game *game)
 {
 	update_gpoint(&game->player, 'x', dest->x);
 	update_gpoint(&game->player, 'y', dest->y);
 	game->player_map_char = game->map->content[dest->y][dest->x];
 }
 
-static void update_player_sprite(t_point *dest, int dir_x, int dir_y, t_game *game)
+static void	update_player_sprite(t_point *dest, int dir_x, int dir_y,
+	t_game *game)
 {
-	int	old_sprite_index;
-	int	new_sprite_index;
-	mlx_instance_t *sprite;
+	int				old_sprite_index;
+	int				new_sprite_index;
+	mlx_instance_t	*sprite;
 
 	old_sprite_index = game->player_img_index;
 	if (dir_y == -1 && old_sprite_index != TX_PLAYER_BACK_I)
@@ -48,9 +49,9 @@ static void update_player_sprite(t_point *dest, int dir_x, int dir_y, t_game *ga
 }
 
 // Moves the player in the given direction
-void move_player(int dir_x, int dir_y, t_game *game)
+void	move_player(int dir_x, int dir_y, t_game *game)
 {
-	t_point dest;
+	t_point	dest;
 
 	dest.x = game->player.x + dir_x;
 	dest.y = game->player.y + dir_y;

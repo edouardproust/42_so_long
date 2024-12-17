@@ -6,7 +6,7 @@
 /*   By: eproust <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:36:31 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/16 19:38:23 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/16 23:56:34 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static mlx_t	*open_window(t_game *game)
 
 	win_width = game->map->cols * CELL_LEN_PX;
 	win_height = game->map->rows * CELL_LEN_PX;
-	mlx = mlx_init(win_width, win_height, GAME_NAME, true);	
+	mlx = mlx_init(win_width, win_height, GAME_NAME, true);
 	if (!mlx)
 		error_game(ERR_MLX_INIT, game);
 	game->mlx = mlx;
@@ -29,7 +29,6 @@ static mlx_t	*open_window(t_game *game)
 
 static void	set_images(t_game *game)
 {
-	
 	game->images_count = 0;
 	set_image(TX_FLOOR, TX_FLOOR_I, game);
 	set_image(TX_WALL, TX_WALL_I, game);
@@ -45,7 +44,7 @@ static void	set_images(t_game *game)
 	set_image(TX_ENEMY, TX_ENEMY_I, game);
 }
 
-static t_game *init_game_struct(t_map *map)
+static t_game	*init_game_struct(t_map *map)
 {
 	t_game	*game;
 
@@ -74,7 +73,7 @@ void	display_game(t_map *map)
 	open_window(game);
 	set_images(game);
 	put_game_map(game);
-	mlx_key_hook(game->mlx, &on_key_press, (void*)game);
+	mlx_key_hook(game->mlx, &on_key_press, (void *)game);
 	mlx_loop(game->mlx);
 	free_game(game);
 }
