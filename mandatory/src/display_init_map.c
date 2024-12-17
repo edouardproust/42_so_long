@@ -6,28 +6,11 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:41:58 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/17 15:11:30 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 21:38:31 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static void	put_moves_counter(t_game *game)
-{
-	t_point	pt;
-	size_t	label_len;
-
-	label_len = ft_strlen(TX_MOVES_LABEL);
-	set_gpoint(&pt, MOVES_BG_X, MOVES_BG_Y, MOVES_COUNTER_Z);
-	set_image(TX_MOVES_BG, TX_MOVES_BG_I, game);
-	print_image(TX_MOVES_BG_I, &pt, game, true);
-	mlx_resize_image(game->images[TX_MOVES_BG_I], MOVES_BG_WIDTH,
-		MOVES_BG_HEIGHT);
-	set_gpoint(&pt, MOVES_LABEL_X, MOVES_LABEL_Y, MOVES_COUNTER_Z + 1);
-	print_image_str(TX_MOVES_LABEL_I, TX_MOVES_LABEL, &pt, game);
-	set_gpoint(&pt, label_len * 22, MOVES_LABEL_Y, MOVES_COUNTER_Z + 2);
-	print_image_str(TX_MOVES_COUNT_I, TX_MOVES_COUNT, &pt, game);
-}
 
 static void	put_cell_fixed_elements(t_point *cell_pt, char cell_char,
 	t_game *game)
@@ -95,5 +78,4 @@ void	put_game_map(t_game *game)
 		}
 		r++;
 	}
-	put_moves_counter(game);
 }

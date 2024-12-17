@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:33:20 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/17 14:56:55 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/17 21:39:48 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ void	update_is_win(t_game *game)
 // Update the number of moves and print it in window
 void	update_print_moves(t_game *game)
 {
-	t_point	pt;
-	char	*nb;
-
 	game->moves++;
-	mlx_delete_image(game->mlx, game->images[TX_MOVES_COUNT_I]);
-	nb = ft_itoa(game->moves);
-	if (!nb)
-		error_game(ERR_ALLOC, game);
-	set_gpoint(&pt, ft_strlen(TX_MOVES_LABEL) * 22, MOVES_LABEL_Y,
-		MOVES_COUNTER_Z + 2);
-	print_image_str(TX_MOVES_COUNT_I, nb, &pt, game);
-	free(nb);
+	ft_printf("Moves: %d\n", game->moves);
 }

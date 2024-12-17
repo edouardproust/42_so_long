@@ -8,7 +8,7 @@ SRCS	:= $(shell find -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
-	valgrind -s --leak-check=full --show-leak-kinds=all ./$(NAME)
+	valgrind ./$(NAME) #-s --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
