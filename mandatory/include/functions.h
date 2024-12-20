@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:53:28 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/17 18:17:58 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/20 16:10:32 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void			replace_image(t_game *game, int old_image_index,
 					int new_image_index, int instance_index);
 mlx_instance_t	*print_image(int img_index, t_point *pt, t_game *game,
 					bool show);
-mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt,
-					t_game *game);
 
 // utils.c
 int				charinset(char c, char *set);

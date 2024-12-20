@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:33:20 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/17 21:39:48 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/20 16:08:34 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	update_collectibles(t_point *dest, t_game *game)
 	if (game->map->content[dest->y][dest->x] != 'C')
 		return ;
 	game->collectibles_left--;
+	game->map->content[dest->y][dest->x] = '0';
 	img = game->images[TX_COLLEC_I];
 	inst_index = get_instance_index(img, dest->y, dest->x);
 	replace_image(game, TX_COLLEC_I, TX_COLLEC_OK_I, inst_index);

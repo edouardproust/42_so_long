@@ -6,7 +6,7 @@
 /*   By: eproust <contact@edouardproust.dev>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 14:42:46 by eproust           #+#    #+#             */
-/*   Updated: 2024/12/17 00:12:58 by eproust          ###   ########.fr       */
+/*   Updated: 2024/12/20 16:10:52 by eproust          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,6 @@ mlx_instance_t	*print_image(int img_index, t_point *pt, t_game *game,
 	mlx_set_instance_depth(inst, pt->z);
 	if (!show)
 		inst->enabled = false;
-	return (inst);
-}
-
-mlx_instance_t	*print_image_str(int img_index, char *str, t_point *pt,
-	t_game *game)
-{
-	mlx_image_t		*img;
-	mlx_instance_t	*inst;
-
-	img = mlx_put_string(game->mlx, str, pt->x, pt->y);
-	if (!img)
-		error_game(ERR_MLX_STR, game);
-	game->images[img_index] = img;
-	game->images_count++;
-	inst = &img->instances[0];
-	mlx_set_instance_depth(inst, pt->z);
 	return (inst);
 }
 
